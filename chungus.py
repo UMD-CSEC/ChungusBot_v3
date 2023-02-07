@@ -48,9 +48,6 @@ async def on_message(ctx):
     if ctx.author.bot:
         return
     else:
-        print(f'msg: {ctx.content}')
-        print(str(ctx.content).encode())
-        print(str(ctx.content) == ":rofl:")
         if ctx.content == "https://tenor.com/view/sigma-sigma-male-sigma-rule-b2k-sigma-expression-gif-27239871":
             print("here")
             if str(ctx.channel.type) == "private":
@@ -98,7 +95,6 @@ async def flip(ctx, one, two, three):
 @bot.command()
 @in_dms()
 async def numbers(ctx, a: int, b: int, c: int, d: int):
-    #a,b,c,d = int(a)
     if a+b+c+d > 4000 and ((a+b)*(c+d)) % 1337 == 25:
         await ctx.channel.send(f'flag2: `{flags[2]}`')
 
