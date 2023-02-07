@@ -48,8 +48,7 @@ async def on_message(ctx):
     if ctx.author.bot:
         return
     else:
-        if ctx.content == "https://tenor.com/view/sigma-sigma-male-sigma-rule-b2k-sigma-expression-gif-27239871":
-            print("here")
+        if str(ctx.content) == "https://tenor.com/view/sigma-sigma-male-sigma-rule-b2k-sigma-expression-gif-27239871":
             if str(ctx.channel.type) == "private":
                 await ctx.channel.send(f'flag0: `{flags[0]}`')
         else:
