@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands, tasks
 from secret import FLAG, SECRET_FLAG, discord_token
 import help_info
+import random
 
 ##################################### IDK ######################################
 intents = discord.Intents().all()
@@ -47,12 +48,13 @@ async def on_message(ctx):
     if ctx.author.bot:
         return
     else:
-        print(f'msg: {ctx.message}')
-        if ctx.message == "https://tenor.com/view/sigma-sigma-male-sigma-rule-b2k-sigma-expression-gif-27239871":
-            await
-        elif len(ctx.message) == 4:
-            # match 4 regex emojis
-            a = 1
+        print(f'msg: {ctx.content}')
+        print(str(ctx.content).encode())
+        print(str(ctx.content) == ":rofl:")
+        if ctx.content == "https://tenor.com/view/sigma-sigma-male-sigma-rule-b2k-sigma-expression-gif-27239871":
+            print("here")
+            if str(ctx.channel.type) == "private":
+                await ctx.channel.send(f'flag0: `{flags[0]}`')
         else:
             await bot.process_commands(ctx)
 
@@ -80,28 +82,44 @@ async def help(ctx, page=None):
 
 @bot.command()
 @in_dms()
-async def numbers(ctx, a, b, c, d):
+async def flip(ctx, one, two, three):
+    flips = [random.randint(0,1) for _ in range(3)]
+    guesses = [one, two, three]
+    guesses = [0 if g.lower() == "tails" else 1 for g in guesses]
+
+    # I could have made the probability worse here. count your blessings
+    if flips == guesses:
+        await ctx.channel.send(f'flag1: `{flags[1]}`')
+    else:
+        msgs = ["wrong", "incorrect", "guess better", "better luck next time"]
+        await ctx.channel.send(random.choice(msgs))
+
+
+@bot.command()
+@in_dms()
+async def numbers(ctx, a: int, b: int, c: int, d: int):
+    #a,b,c,d = int(a)
     if a+b+c+d > 4000 and ((a+b)*(c+d)) % 1337 == 25:
-        await ctx.channel.send(f'flag2: {flags[2]}')
+        await ctx.channel.send(f'flag2: `{flags[2]}`')
 
 @bot.command()
 @in_dms()
 async def bee(ctx, test=None):
     print(f'test = {test}')
     a = ctx.message.attachments
-    print(a)
     if len(a) == 1:
-        script = a[0].read()
+        script = await a[0].read()
 
         # yes, I know. My requirements for a "bee movie script" are pretty low... don't judge
-        if "You like jazz?" in script and len(script) >= 100:
-            await ctx.channel.send(f'flag3: {flags[3]}')
+        if b"You like jazz?" in script and len(script) >= 100:
+            await ctx.channel.send(f'flag3: `{flags[3]}`')
 
+@bot.command()
 @in_bot_channel()
 async def gimme(ctx, da=None, fl=None, pl=None):
     if da == "da" and fl == "flag":
         if pl == "please":
-            await ctx.channel.send(f'here you go: {SECRET_FLAG}')
+            await ctx.channel.send(f'here you go: <{SECRET_FLAG}>')
         else:
             await ctx.channel.send(f'only if you say "please"')
 
