@@ -1,6 +1,8 @@
 help_page = '''
 `---> help`
 display this help page
+`---> flip [one] [two] [three]`
+u better guess right
 `---> numbers [a] [b] [c] [d]`
 Chungus is very interested in your numbers
 `---> bee`
