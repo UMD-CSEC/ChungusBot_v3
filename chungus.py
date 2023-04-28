@@ -64,7 +64,7 @@ def in_dms():
 def in_bot_channel():
     async def tocheck(ctx):
         # A check for ctf context specific commands
-        return str(ctx.channel.id)  == "1072348075877740634" # Test CTFBot server - chungus_v3 channel
+        return str(ctx.channel.id)  == "1101607026427175005" # UMDCTF2023 server - bot channel
     return commands.check(tocheck)
 
 
